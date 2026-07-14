@@ -33,9 +33,13 @@ available, otherwise a direct yes/no in chat) before proceeding:
 - Check whether the **Super Productivity** desktop app is installed; if
   not, open its download page and stop, asking them to install it and
   bring you back.
-- Install **Bun** if it's missing — a small, official one-line installer,
-  no admin rights required. This is only used to compile the MCP server;
-  it is not left running as a dependency.
+- Install **Bun** if it's missing, using the official installer — no admin
+  rights required:
+  - Windows (PowerShell): `powershell -c "irm bun.sh/install.ps1 | iex"`
+  - macOS/Linux (bash): `curl -fsSL https://bun.sh/install | bash`
+
+  This is only used to compile the MCP server; it is not left running as
+  a dependency.
 - Download the `super-productivity-mcp` repo, compile it into a single
   standalone executable (no Node/Bun needed afterward), and register it
   with Claude Code (`claude mcp add -s user super-productivity -- <exe>`).
@@ -58,6 +62,13 @@ If the Super Productivity app isn't installed, the script opens the
 download page and exits early — tell the user to install it and re-run
 the same command (you can re-invoke it yourself once they confirm it's
 installed).
+
+The script installs Bun itself via the official installer
+(https://bun.sh/install, https://bun.sh/install.ps1) if it detects it's
+missing, so you normally don't need to run that command separately —
+it's listed above so the briefing is accurate about what's about to
+happen, and as a manual fallback if the script's auto-install step fails
+for any reason.
 
 Stream the script's output to the user rather than running it silently;
 if any step fails, diagnose from the error text before retrying — don't
