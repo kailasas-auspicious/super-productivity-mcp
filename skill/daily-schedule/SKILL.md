@@ -46,6 +46,22 @@ fabricate task data.
   assigning a task to a project/tag; task creation needs the project/tag
   **id**, not its display title.
 
+## Known limitation: no create/update for projects or tags
+
+Super Productivity's Local REST API exposes `/projects` and `/tags` as
+**read-only** (GET only) — there is no HTTP way to create or rename a
+project or tag. `sp_list_projects`/`sp_list_tags` only ever list what
+already exists.
+
+If the user asks to file a task under a project or tag that doesn't exist
+yet, **don't fail silently or invent an id.** Tell them the project/tag
+needs to be created inside the Super Productivity app first (sidebar → +
+next to Projects/Tags), then retry once they've done that. This is a
+platform limitation, not a bug — the only programmatic way around it is
+Super Productivity's separate in-app Plugin API (`addProject`/`addTag`),
+which is a different, unsandboxed extension mechanism this MCP server
+does not implement.
+
 ## Conventions
 
 - Task ids are opaque strings returned by the API — don't invent them.
